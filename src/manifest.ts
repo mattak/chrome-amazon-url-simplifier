@@ -27,7 +27,7 @@ export default defineManifest({
   },
   content_scripts: [
     {
-      matches: ['http://*/*', 'https://*/*'],
+      matches: ['*://*.amazon.co.jp/*'],
       js: ['src/contentScript/index.ts'],
     },
   ],
@@ -40,7 +40,7 @@ export default defineManifest({
       matches: [],
     },
   ],
-  permissions: ['sidePanel', 'storage'],
+  permissions: ['storage'],
   chrome_url_overrides: {
     newtab: 'newtab.html',
   },
