@@ -11,6 +11,9 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       outDir: 'build',
       rollupOptions: {
+        input: {
+          popup: 'popup.html',
+        },
         output: {
           chunkFileNames: 'assets/chunk-[hash].js',
         },
