@@ -12,6 +12,12 @@ export const Popup = () => {
         return 'Amazon.co.jpのURLではありません'
       }
 
+      // gp/product/ の後の商品IDを抽出
+      const gpMatch = urlObj.pathname.match(/\/gp\/product\/([A-Z0-9]+)/)
+      if (gpMatch) {
+        return `https://www.amazon.co.jp/gp/product/${gpMatch[1]}/`
+      }
+
       // dp/ の後の商品IDを抽出
       const dpMatch = urlObj.pathname.match(/\/dp\/([A-Z0-9]+)/)
       if (dpMatch) {
@@ -29,6 +35,14 @@ export const Popup = () => {
       await navigator.clipboard.writeText(text)
       setCopyStatus('コピーしました！')
       setTimeout(() => setCopyStatus(''), 2000) // 2秒後にメッセージを消す
+      
+      // 1秒後にURLを変更してリロード
+      setTimeout(async () => {
+        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+        if (tab.id) {
+          await chrome.tabs.update(tab.id, { url: text })
+        }
+      }, 1000)
     } catch (error) {
       console.error('Copy failed:', error)
       setCopyStatus('コピーに失敗しました')
