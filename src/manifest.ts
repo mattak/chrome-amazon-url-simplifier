@@ -35,7 +35,7 @@ export default defineManifest({
       matches: [],
     },
   ],
-  permissions: ['storage', 'tabs'],
+  permissions: ['storage', 'tabs', 'clipboardWrite'],
   // chrome_url_overrides: {
   //   newtab: 'newtab.html',
   // },
